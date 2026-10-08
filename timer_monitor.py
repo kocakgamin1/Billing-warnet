@@ -2,7 +2,6 @@ import os
 import time
 
 from config import list_proses
-from lock_screen import tampilan_kunci
 
 def kill_processes():
     for proses in list_proses:

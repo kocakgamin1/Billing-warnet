@@ -1,4 +1,4 @@
-import mulitprocessing as mp
+import multiprocessing as mp
 import tkinter as tk
 
 
@@ -8,8 +8,8 @@ def jalankan_tampilan_kunci(status_pc):
     root.attributes("-topmost", True)
     root.configure(bg="black")
     root.title("Layar Kunci")
-    
-    label_status = tk.Label(root, text="Status PC: {}".format(status_pc.value), fg="white", bg="black")
+
+    label_status = tk.Label(root, text="", fg="white", bg="black")
     label_status.pack(pady=20)
 
     button_unlock = tk.Button(root, text="Buka Kunci", fg="white", bg="red")
@@ -20,15 +20,32 @@ def jalankan_tampilan_kunci(status_pc):
 
     root.protocol("WM_DELETE_WINDOW", lambda: None)  # Disable close button
 
-    def cek_status():
-        if status_pc.value == 1:
-            root.destroy()
-        else:
-            root.after(1000, cek_status)
+    status_sebelumnya = None
 
-    root.after(1000, cek_status)
+    def cek_status():
+        nonlocal status_sebelumnya
+        status_sekarang = status_pc.value
+
+        if status_sekarang != status_sebelumnya:
+            label_status.config(
+                text="Status PC: {}".format(
+                    "terkunci" if status_sekarang == 0 else "aktif"
+                )
+            )
+            if status_sekarang == 1:
+                root.withdraw()
+            else:
+                root.deiconify()
+                root.lift()
+                root.attributes("-topmost", True)
+            status_sebelumnya = status_sekarang
+
+        root.after(500, cek_status)
+
+    cek_status()
 
     root.mainloop()
+
 
 def tampilan_kunci(status_pc):
     p_tampilan = mp.Process(target=jalankan_tampilan_kunci, args=(status_pc,))
