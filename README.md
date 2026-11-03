@@ -11,6 +11,24 @@ Billing sederhana untuk warnet: PC client terkunci layar penuh, operator membuka
 - Tarif per jam + paket durasi, semuanya di `data/config.json` (tinggal diubah, tidak perlu sentuh kode)
 - Sesi dan pendapatan tersimpan di SQLite, sisa waktu & biaya tampil live di panel
 - Sesi aktif otomatis dipulihkan kalau aplikasi mati/restart di tengah sesi
+  
+## Cara kerja
+
+Semua proses berjalan di PC client, berkomunikasi lewat shared memory, dan data tersimpan lewat satu gerbang tunggal (`core/storage.py`):
+
+```mermaid
+flowchart LR
+    OP[Operator] -- browser --> P[Panel Flask]
+    MAIN[main.py] --> P
+    MAIN --> L[Layar Kunci tkinter]
+    MAIN --> T[Proses Timer]
+    SM[(Shared Memory)]
+    P <-- "status, deadline, sesi" --> SM
+    L <-- "baca status tiap 0,5 detik" --> SM
+    T <-- "hitung mundur" --> SM
+    T -- "waktu habis" --> KILL[Taskkill game dan browser]
+    P -- "sesi dan pendapatan" --> DB[(SQLite dan config.json)]
+```
 
 ## Struktur
 
