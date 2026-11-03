@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Operator - Z-NET</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f0f1a; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .card { background: #1a1a2e; padding: 40px; border-radius: 15px; border: 1px solid #333; width: 320px; text-align: center; }
+        input, button { width: 100%; padding: 14px; margin: 8px 0; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; }
+        input { background: #252542; color: #fff; text-align: center; }
+        button { background: linear-gradient(45deg, #00f2fe, #4facfe); color: #000; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { opacity: 0.9; }
+        .error { color: #ff4b4b; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Z-NET Operator</h2>
+        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        <form method="post">
+            <input type="password" name="token" placeholder="Token Operator" required autofocus>
+            <button type="submit">MASUK</button>
+        </form>
+    </div>
+</body>
+</html>

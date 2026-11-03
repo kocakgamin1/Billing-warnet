@@ -1,0 +1,11 @@
+{
+  "server": { "host": "0.0.0.0", "port": 5000 },
+  "operator_token": "admin123",
+  "tarif_per_jam": 5000,
+  "paket": [
+    { "nama": "1 Jam", "menit": 60 },
+    { "nama": "2 Jam", "menit": 120 },
+    { "nama": "3 Jam", "menit": 180 }
+  ],
+  "kill_processes": ["chrome.exe", "valorant.exe", "steam.exe", "discord.exe"]
+}
